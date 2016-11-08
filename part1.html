@@ -24,13 +24,13 @@ function preload() {
     game.load.image('diamond', 'assets/diamond.png');
     game.load.spritesheet('protagonist', 'assets/protagonist.png', 64, 64);
     game.load.audio('jump', 'audio/jump.mp3');
-    game.load.audio('pickup', 'audio/pickup.mp3');
+    game.load.audio('pckup', 'audio/pckup.mp3');
 
 }
 
 var player;
 var jump;
-var pickup;
+var pckup;
 var lands;
 var cursors;
 
@@ -114,7 +114,7 @@ function create() {
     game.camera.follow(player);
     player.body.setSize(20, 55, 22, 10);
     jump = game.add.audio('jump');
-    pickup = game.add.audio('pickup');
+    pckup = game.add.audio('pckup');
 
 }
 
@@ -163,7 +163,7 @@ function collectDiamond (player, diamond) {
 
     // Removes the diamond from the screen
     diamond.kill();
-    pickup.play();
+    pckup.play();
 
     //  Add and update the score
     score += 10;
