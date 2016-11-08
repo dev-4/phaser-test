@@ -118,7 +118,7 @@ function create() {
     pickup = game.add.audio('pickup');
     theme = game.add.audio('theme');
     theme.loop = true;
-    theme.volume = 0.5;
+    theme.volume = 0.020;
     theme.play();
 
 }
@@ -159,7 +159,7 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down)
     {
         player.body.velocity.y = -650;
-        jump.volume = 0.2;
+        jump.volume = 0.040;
         jump.play();
     }
 
@@ -169,7 +169,7 @@ function collectDiamond (player, diamond) {
 
     // Removes the diamond from the screen
     diamond.kill();
-    pickup.volume = 0.1;
+    pickup.volume = 0.040;
     pickup.play();
 
     //  Add and update the score
