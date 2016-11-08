@@ -19,7 +19,8 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 function preload() {
 
     game.load.image('background', 'assets/background.png');
-    game.load.image('ground', 'assets/land.png');
+    game.load.image('land', 'assets/land.png');
+    game.load.image('ground', 'assets/ground.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('protagonist', 'assets/protagonist.png', 64, 64);
 
@@ -36,39 +37,40 @@ var scoreText;
 function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    //  A simple background for our game
+    //  The score
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    //  A simple backland for our game
     // game.add.sprite(0, 0, 1920, 1200, 'sky');
     game.add.tileSprite(0, 0, 1920, 1200, 'background');
     game.world.setBounds(0, 0, 1920, 1200);
 
-    //  The lands group contains the ground and the 2 ledges we can jump on
+    //  The lands group contains the land and the 2 ledges we can jump on
     lands = game.add.group();
 
     //  We will enable physics for any object that is created in this group
     lands.enableBody = true;
 
-    // Here we create the ground.
-    var ground = lands.create(0, game.world.height - 32, 'ground');
+    // Here we create the land.
+    var land = lands.create(0, game.world.height - 32, 'land');
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(10, 1);
+    land.scale.setTo(1, 1);
 
     //  This stops it from falling away when you jump on it
-    ground.body.immovable = true;
+    land.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = lands.create(400, 1050, 'ground');
+    var ledge = lands.create(500, 1050, 'ground');
     ledge.body.immovable = true;
-
     ledge = lands.create(-150, 1000, 'ground');
     ledge.body.immovable = true;
-
     ledge = lands.create(1000, 1000, 'ground');
+    ledge.body.immovable = true;
+    ledge = lands.create(1400, 800, 'ground');
     ledge.body.immovable = true;
 
     // The player and its settings
-    player = game.add.sprite(32, game.world.height - 150, 'protagonist');
+    player = game.add.sprite(32, game.world.height - 100, 'protagonist');
 
     //  We need to enable physics on the player
     game.physics.arcade.enable(player);
@@ -101,8 +103,6 @@ function create() {
         star.body.bounce.y = 0.1 + Math.random() * 0.2;
     }
 
-    //  The score
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
@@ -144,7 +144,7 @@ function update() {
         player.frame = 4;
     }
 
-    //  Allow the player to jump if they are touching the ground.
+    //  Allow the player to jump if they are touching the land.
     if (cursors.up.isDown && player.body.touching.down)
     {
         player.body.velocity.y = -500;
