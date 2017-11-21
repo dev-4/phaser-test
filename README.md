@@ -1,4 +1,8 @@
-# Dev's Game (Made using Phaser.js
+# Dev's Game
+
+### Stack:
+- HTML/CSS/JavaScript
+- Phaser.JS
 ```
 Testing out the Phaser.js for on agency-week-rails project
 ```
